@@ -47,8 +47,8 @@ compareButton.addEventListener("click", () => {
 // Generate Tiles for each Dino in Array
 const grid = document.querySelector("#grid");
 const gridTile = document.createElement("div");
-gridTile.innerHTML = `<img src='images/anklyosaurus.png'>
-                    <h3>Test Tile</h3>`;
+// gridTile.innerHTML = `<img src='images/anklyosaurus.png'>
+//                     <h3>Test Tile</h3>`;
 // Add tiles to DOM
 //if (form.remove) {grid.appendChild(gridTile);}
 
