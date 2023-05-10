@@ -26,9 +26,16 @@ function Dino(species, weight, height, diet, where, when, fact) {
 
 // Generate Tiles for each Dino in Array
 const grid = document.querySelector('#grid');
-
+const gridTile = document.createElement('div');
+gridTile.innerHTML = `<img src='images/anklyosaurus.png'>
+                    <h3>Test Tile</h3>`;
 // Add tiles to DOM
+grid.appendChild(gridTile);
 
 // Remove form from screen
-
+const form = document.querySelector('#dino-compare');
+const compareButton = document.querySelector('#btn');
+compareButton.addEventListener('click', function() {
+    form.remove();
+})
 // On button click, prepare and display infographic
