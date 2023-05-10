@@ -1,0 +1,23 @@
+{
+  "name": "dinosaurproject",
+  "version": "1.0.0",
+  "description": "## Student Instructions",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "npx prettier --write app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derPatecopa/dinosaurproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derPatecopa/dinosaurproject/issues"
+  },
+  "homepage": "https://github.com/derPatecopa/dinosaurproject#readme",
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
+}
