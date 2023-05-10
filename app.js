@@ -50,7 +50,7 @@ const gridTile = document.createElement("div");
 gridTile.innerHTML = `<img src='images/anklyosaurus.png'>
                     <h3>Test Tile</h3>`;
 // Add tiles to DOM
-if (form.remove) {grid.appendChild(gridTile);}
+//if (form.remove) {grid.appendChild(gridTile);}
 
 // Remove form from screen
 compareButton.addEventListener("click", function () {
