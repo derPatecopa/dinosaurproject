@@ -1,46 +1,73 @@
-// Create Dino Constructor
-function Dino(species, weight, height, diet, where, when, fact) {
-  this.species = species;
-  this.weight = weight;
-  this.height = height;
-  this.diet = diet;
-  this.where = where;
-  this.when = when;
-  this.fact = fact;
-}
-
-// Create Human Object
-const grid = document.querySelector("#grid");
-//creating grid Div
-const gridTile = document.createElement("div");
-//filling a grid tile with content
-
-const form = document.querySelector("#dino-compare");
+//selecting and creating compare Button
 const compareButton = document.querySelector("#btn");
+
+//adding Event Listener on Button Click
 compareButton.addEventListener("click", () => {
+  // Create Dino Constructor
+  function Dino(species, weight, height, diet, where, when, fact) {
+    this.species = species;
+    this.weight = weight;
+    this.height = height;
+    this.diet = diet;
+    this.where = where;
+    this.when = when;
+    this.fact = fact;
+  }
+
+  //creating Grid
+  const grid = document.querySelector("#grid");
+
+  //creating Array of 9 tiles
+  const allTiles = Array(9);
+
+  //creating grid Div and adding grid-item Style
+  const humanTile = document.createElement("div");
+  humanTile.classList.add("grid-item");
+
   // Use IIFE to get human data from form
-  //IIFE
   (() => {
+    // Human Constructor
+    function Human(name, feet, inches, weight, diet) {
+      (this.name = name),
+        (this.feet = feet),
+        (this.inches = inches),
+        (this.weight = weight),
+        (this.diet = diet);
+    }
+
+    //selecting values from form for human object
     const name = document.querySelector("#name").value;
     const feet = parseFloat(document.querySelector("#feet").value);
     const inches = parseFloat(document.querySelector("#inches").value);
     const weight = parseFloat(document.querySelector("#weight").value);
     const diet = document.querySelector("#diet").value;
 
-    const human = {
-      name: name,
-      feet: feet,
-      inches: inches,
-      weight: weight,
-      diet: diet,
-    };
-    gridTile.innerHTML = `<img src='images/human.png'>
-                   <h3>${human.name}</h3>`;
+    //creating Human object
+    const human = new Human(name, feet, inches, weight, diet);
+
+    //selecting name and image for human tile
+    const humanImage = document.createElement("img");
+    humanImage.src = `images/human.png`;
+
+    const humanName = document.createElement("h3");
+    humanName.textContent = human.name;
+
+    //constructing the human tile, order matters
+    humanTile.appendChild(humanName);
+    humanTile.appendChild(humanImage);
+
+    //placing human tile in the middle
+    allTiles[4] = humanTile;
   })();
-  // Create Dino Objects
+
+  // Create Dino Objects    
+  //getting local json data
   fetch("dino.json")
+  //turn it into json object
     .then((response) => response.json())
+    //selecting it to use a function on it
     .then((data) => {
+        //mapping every object in the json object to Dino constructor
       //map function returns an array
       const dinos = data.Dinos.map(
         (dino) =>
@@ -54,23 +81,35 @@ compareButton.addEventListener("click", () => {
             dino.fact
           )
       );
-      dinos.forEach((dino) => {
-        const tile = document.createElement("div");
-        tile.classList.add("grid-item");
+      dinos.forEach((dino, index) => {
+        //creating a Dino Tile
+        const dinoTile = document.createElement("div");
+        dinoTile.classList.add("grid-item");
 
+        //setting an image for the Tile
         const image = document.createElement("img");
         image.src = `images/${dino.species.toLowerCase()}.png`;
-        tile.appendChild(image);
 
+        //setting the fact for the Dino Tile
+        const fact = document.createElement("p");
+        if (dino.species === "Pigeon" ) {
+         fact.textContent = dino.fact;
+        }
+        else 
+        fact.textContent = getRandomFact(dino);
+
+        //setting a Name for the Dino Tile
         const name = document.createElement("h3");
         name.textContent = dino.species;
-        tile.appendChild(name);
 
-        const fact = document.createElement("p");
-        fact.textContent = getRandomFact(dino);
-        tile.appendChild(fact);
+        //appending the Dino Tile with each part in the right order to be displayed
+        dinoTile.appendChild(name);
+        dinoTile.appendChild(fact);
+        dinoTile.appendChild(image);
 
-        grid.appendChild(tile);
+        if (index === 4) {
+          allTiles[index + 4] = dinoTile;
+        } else allTiles[index] = dinoTile;
       });
 
       function getRandomFact(dino) {
@@ -86,26 +125,14 @@ compareButton.addEventListener("click", () => {
       }
       // Use the dinos array to generate tiles for each Dino
       // and add them to the grid
+      const form = document.querySelector("#dino-compare");
+      form.remove();
+      //creating the grid
+      grid.innerHTML = "";
+
+      allTiles.forEach((tile) => {
+        grid.appendChild(tile);
+      });
     });
-  //removing the form
-  form.remove();
-  //creating the grid
-  grid.appendChild(gridTile);
 });
 
-// Create Dino Compare Method 1
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
-// Create Dino Compare Method 2
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
-// Create Dino Compare Method 3
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
-// Generate Tiles for each Dino in Array
-
-// Add tiles to DOM
-
-// Remove form from screen
-
-// On button click, prepare and display infographic
